@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Notes</title>
+		
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+		<link rel="stylesheet" href="styles/styles.css">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<main>
+			<div class="d-flex justify-content-evenly">
+				<% for (let note of pageNotes) { %>
+					<div id="<%= note.id %>" class="card" style="width: 18rem;">
+						<div class="card-body">
+							<h5 class="card-title"><%= note.name %></h5>
+							<p class="card-text"><%= note.content %></p>
+							
+							<form action="/delete" method="POST">
+								<button type="submit" id="delete" name="delete" value="<%= note.id %>">
+									<img src="images/trash.svg" alt="trash" />
+								</button>
+							</form>
+							
+							<button type="button" id="edit" name="edit">
+								<img src="images/pencil.svg" alt="pencil" />
+							</button>
+						</div>
+						
+						<div class="input" hidden>
+							<form action="/edit" method="POST">
+								<input
+									type="hidden"
+									id="cardID"
+									name="cardID"
+									value="<%= note.id %>"
+								/>
+								<input
+									type="text"
+									id="titleInput"
+									name="titleInput"
+									value="<%= note.name %>"
+								/>
+								<input
+									type="text"
+									id="contentInput"
+									name="contentInput"
+									value="<%= note.content %>"
+								/>
+								
+								<button type="submit">
+									<img src="images/check.svg" alt="check">	
+								</button>
+							</form>
+						</div>
+					</div>
+				<% } %>
+			</div>
+			
+			
+			<form action="/add" method="POST">
+				<button type="submit" id="add">
+					<img src="images/plus-circle.svg" alt="add button" class="w-100"/>
+				</button>
+			</form>
+		</main>
+		<script src="scripts/scripts.js"></script>
+	</body>
+</html>
